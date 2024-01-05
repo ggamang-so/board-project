@@ -1,6 +1,7 @@
 package com.ggamangso.boardproject.controller;
 
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@WebMvcTest : Controller와 관계된 것들만 불러와서 api가 없는 것처럼 나와서 @SpringBootTest로 변경
+//@WebMvcTest : Controller와 관계된 것들만 불러와서 api가 없는 것처럼 나와서 @SpringBootTest로 변경해서 통합테스트로 함
 @DisplayName("Data Rest - API 테스트")
+@Disabled("Spring Data Rest 통합테스트는 무겁고 불필요해 제외시킴")
 @Transactional  // DB에 영향을 미치지 않도록 rollback 되게 설정
 @AutoConfigureMockMvc
-@SpringBootTest
+@SpringBootTest //통합 테스트로 짆애
 public class DataRestTest {
 
     private final MockMvc mvc;

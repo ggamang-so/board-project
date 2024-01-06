@@ -27,6 +27,8 @@ dependencies {
     //lombok 의존성 주입
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    //사용자 config 설정들을 자동완성으로 보여줄수 있는
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     //devtools 의존성 주입
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 

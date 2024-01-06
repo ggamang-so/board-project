@@ -24,15 +24,23 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    //lombok 의존성 주입
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    runtimeOnly 'com.mysql:mysql-connector-j'
-    runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    //devtools 의존성 주입
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // mySQL DB 연결을 위한 Driver 의존성 주입
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    // h2 DB 의존성 주입
+    runtimeOnly 'com.h2database:h2'
+
+    // api를 자동으로 생성해주는 도구 spring data rest 의존성 추가
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    // api를 볼 수 있는 data rest hal explorer 의존성 추가
     implementation 'org.springframework.data:spring-data-rest-hal-explorer'
+    // 서버사이드 뷰 템플릿 의존성 추가
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     //queryDSL 설정
@@ -42,6 +50,8 @@ dependencies {
     annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
     annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
     annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 }
 

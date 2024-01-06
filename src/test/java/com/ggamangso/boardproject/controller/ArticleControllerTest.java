@@ -34,14 +34,14 @@ class ArticleControllerTest {
                 .andExpect(view().name("articles/index"))// contentType 이 HTML view 파일인지
                 .andExpect(model().attributeExists("articles")); // model에 articles라는 이름의 정보가 넘어오는지
     }
-    @Disabled("구현중")
+
     @DisplayName("[view][GET] 게시글 상세 페이지 - 정상호출 ")
     @Test
     public void OneArticleTest() throws Exception {
         //Given
 
         //When & Then
-        mvc.perform(get("/article/1"))
+        mvc.perform(get("/articles/1"))
                 .andExpect(status().isOk()) // 상태가 Ok 인지
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("articles/detail"))// contentType 이 HTML view 파일인지

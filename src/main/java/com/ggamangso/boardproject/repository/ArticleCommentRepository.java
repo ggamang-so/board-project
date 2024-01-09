@@ -10,19 +10,22 @@ import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.util.List;
+
 @RepositoryRestResource
 public interface ArticleCommentRepository extends
         JpaRepository<ArticleComment, Long>,
-        QuerydslPredicateExecutor<ArticleComment>
-        , QuerydslBinderCustomizer<QArticleComment>
-{
+        QuerydslPredicateExecutor<ArticleComment>,
+        QuerydslBinderCustomizer<QArticleComment> {
+
+    List<ArticleComment> findByArticle_Id(Long articleId);
+
     @Override
-    default void customize(QuerydslBindings bindings, QArticleComment root){
-        bindings.excludeUnlistedProperties(true);  // 모든 항목에 열려있는 검색을 원하는 필드로 제한하기 위해
-        bindings.including(root.content, root.createBy, root.createAt); //포함할 필드
+    default void customize(QuerydslBindings bindings, QArticleComment root) {
+        bindings.excludeUnlistedProperties(true);
+        bindings.including(root.content, root.createAt, root.createBy);
         bindings.bind(root.content).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.createAt).first(DateTimeExpression::eq);
-        bindings.bind(root.createBy).first(StringExpression::containsIgnoreCase);// like '%${v}%' 형태로
-
-    };
+        bindings.bind(root.createBy).first(StringExpression::containsIgnoreCase);
+    }
 }

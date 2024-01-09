@@ -13,8 +13,8 @@ import java.util.Set;
 @Table(indexes = { //검색에 속도를 올리기 위해 indexing 하는 것
         @Index(columnList ="title"),
         @Index(columnList ="hashtag"),
-        @Index(columnList ="createAt"),
-        @Index(columnList ="createBy")
+        @Index(columnList ="createdAt"),
+        @Index(columnList ="createdBy")
 })
 @Entity
 public class Article extends AuditingFields {

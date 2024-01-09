@@ -23,12 +23,12 @@ public interface ArticleRepository extends
     @Override
     default void customize(QuerydslBindings bindings, QArticle root){
         bindings.excludeUnlistedProperties(true);  // 모든 항목에 열려있는 검색을 원하는 필드로 제한하기 위해
-        bindings.including(root.title, root.content, root.hashtag, root.createBy, root.createAt); //포함할 필드
+        bindings.including(root.title, root.content, root.hashtag, root.createdBy, root.createdAt); //포함할 필드
         bindings.bind(root.title).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.content).first(StringExpression::containsIgnoreCase);
         bindings.bind(root.hashtag).first(StringExpression::containsIgnoreCase);
-        bindings.bind(root.createAt).first(DateTimeExpression::eq);
-        bindings.bind(root.createBy).first(StringExpression::containsIgnoreCase);// like '%${v}%' 형태로
+        bindings.bind(root.createdAt).first(DateTimeExpression::eq);
+        bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);// like '%${v}%' 형태로
 
     };
 }

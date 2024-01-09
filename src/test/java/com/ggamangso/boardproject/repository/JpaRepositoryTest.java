@@ -2,12 +2,12 @@ package com.ggamangso.boardproject.repository;
 
 import com.ggamangso.boardproject.config.JpaConfig;
 import com.ggamangso.boardproject.domain.Article;
+import com.ggamangso.boardproject.domain.UserAccount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
@@ -21,12 +21,15 @@ class JpaRepositoryTest {
 
     private final ArticleRepository articleRepository;
     private final ArticleCommentRepository articleCommentRepository;
+    private final UserAccountRepository userAccountRepository;
 
     // Constructor 주입 방식으로 의존성 주입
     public JpaRepositoryTest(@Autowired ArticleRepository articleRepository,
-                      @Autowired ArticleCommentRepository articleCommentRepository) {
+                             @Autowired ArticleCommentRepository articleCommentRepository,
+                             @Autowired UserAccountRepository userAccountRepository) {
         this.articleRepository = articleRepository;
         this.articleCommentRepository = articleCommentRepository;
+        this.userAccountRepository = userAccountRepository;
     }
     @DisplayName("select 테스트")
     @Test
@@ -46,8 +49,10 @@ class JpaRepositoryTest {
     void givenTestData_whenInserting_thenWorkFine(){
         //Given
         long previousCount = articleRepository.count();
+        UserAccount userAccount = userAccountRepository.save(UserAccount.of("uno", "pw", null, null, null));
+        Article article = Article.of(userAccount, "new article", "new content", "#spring");
         //When
-        Article savedArticle = articleRepository.save(Article.of("new article", "new content", "new hashtag"));
+        articleRepository.save(article);
         //Then
         assertThat(articleRepository.count()).isEqualTo(previousCount + 1);
 

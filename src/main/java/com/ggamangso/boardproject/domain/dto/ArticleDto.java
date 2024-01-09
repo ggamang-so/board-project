@@ -26,8 +26,8 @@ public record ArticleDto(
                 entity.getTitle(),
                 entity.getContent(),
                 entity.getHashtag(),
-                entity.getCreateAt(),
-                entity.getCreateBy(),
+                entity.getCreatedAt(),
+                entity.getCreatedBy(),
                 entity.getModifiedAt(),
                 entity.getModifiedBy()
         );

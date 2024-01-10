@@ -10,8 +10,8 @@ import java.util.Objects;
 @ToString(callSuper = true)
 @Table(indexes = { //검색에 속도를 올리기 위해 indexing 하는 것
         @Index(columnList ="content"),
-        @Index(columnList ="createAt"),
-        @Index(columnList ="createBy")
+        @Index(columnList ="createdAt"),
+        @Index(columnList ="createdBy")
 })
 @Entity
 public class ArticleComment extends AuditingFields {

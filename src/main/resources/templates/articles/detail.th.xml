@@ -13,7 +13,6 @@
         <attr sel="#hashtag" th:text="*{hashtag}" />
         <attr sel="#article-content/pre" th:text="*{content}" />
     </attr>
-
     <attr sel="#article-comments" th:remove="all-but-first">
         <attr sel="li[0]" th:each="articleComment : ${articleComments}">
             <attr sel="div/strong" th:text="${articleComment.nickname}" />
@@ -21,4 +20,16 @@
             <attr sel="div/p" th:text="${articleComment.content}" />
         </attr>
     </attr>
+
+    <attr sel="#pagination">
+        <attr sel="ul">
+        <attr sel="li[0]/a"
+              th:href="*{id} - 1 <= 0 ? '#' : |/articles/*{id - 1}|"
+              th:class="'page-link' + (*{id} - 1 <= 0 ? ' disabled' : '')"/>
+        <attr sel="li[1]/a"
+              th:href="*{id} + 1 > ${totalCount} ? '#' : |/articles/*{id + 1}|"
+              th:class="'page-link' + (*{id} + 1 > ${totalCount} ? ' disabled' : '')"
+            />
+    </attr>
+
 </thlogic>

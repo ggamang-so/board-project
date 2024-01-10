@@ -95,15 +95,19 @@ class ArticleControllerTest {
     public void OneArticleTest() throws Exception {
         //Given
         Long articleId = 1L;
+        long totalCount = 1L;
         given(articleService.getArticle(articleId)).willReturn(createArticleWithCommentsDto());
+        given(articleService.getArticleCount()).willReturn(totalCount);
         //When & Then
         mvc.perform(get("/articles/1"))
                 .andExpect(status().isOk()) // 상태가 Ok 인지
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("articles/detail"))// contentType 이 HTML view 파일인지
                 .andExpect(model().attributeExists("article"))
-                .andExpect(model().attributeExists("articleComments"));
-        then(articleService).should().getArticle(articleId);// model에 article라는 이름의 정보가 넘어오는지
+                .andExpect(model().attributeExists("articleComments"))
+                .andExpect((model().attribute("totalCount", totalCount)));
+        then(articleService).should().getArticle(articleId);//model에 article라는 이름의 정보가 넘어오는지
+        then(articleService).should().getArticleCount();
     }
 
 

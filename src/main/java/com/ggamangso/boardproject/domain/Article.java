@@ -27,7 +27,7 @@ public class Article extends AuditingFields {
     @Setter @Column(nullable = false, length=10000)private String content; // 본문
     @Setter private String hashtag; // 해시태그
 
-    @OrderBy("createAt DESC") // 게시글 정렬 기본값이 생성일자일 것으로 예상되어 변경
+    @OrderBy("createdAt DESC") // 게시글 정렬 기본값이 생성일자일 것으로 예상되어 변경
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     @ToString.Exclude
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();

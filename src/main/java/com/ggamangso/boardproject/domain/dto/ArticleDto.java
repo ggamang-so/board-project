@@ -1,6 +1,7 @@
 package com.ggamangso.boardproject.domain.dto;
 
 import com.ggamangso.boardproject.domain.Article;
+import com.ggamangso.boardproject.domain.UserAccount;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +16,10 @@ public record ArticleDto(
         LocalDateTime modifiedAt,
         String modifiedBy
 ) {
+    //메타데이터를 포함하지 않는 팩토리 메소드 of
+    public static ArticleDto of(UserAccountDto userAccount, String title, String content, String hashtag) {
+        return new ArticleDto(null, userAccount, title, content, hashtag, null, null, null, null);
+    }
     public static ArticleDto of(Long id, UserAccountDto userAccountDto, String title, String content, String hashtag, LocalDateTime createdAt, String createdBy, LocalDateTime modifiedAt, String modifiedBy) {
         return new ArticleDto(id, userAccountDto, title, content, hashtag, createdAt, createdBy, modifiedAt, modifiedBy);
     }
@@ -33,9 +38,9 @@ public record ArticleDto(
         );
     }
 
-    public Article toEntity() {
+    public Article toEntity(UserAccount userAccount) {
         return Article.of(
-                userAccountDto.toEntity(),
+                userAccount,
                 title,
                 content,
                 hashtag
